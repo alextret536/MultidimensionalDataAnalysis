@@ -845,12 +845,13 @@ i:~~\lambda_i>\frac{\sum\limits_{i=1}^p s^2(X_i)}{p} = \frac{\sum\limits_{i=1}^d
 
 Главное отличие факторного анализа от анализа главных компонент --- это наличие модели в факторном анализе.
 
-Пусть $\xi=(\xi_1,\ldots,\xi_p)^\mathrm{T} \in \mathbb{R}^p, ~\eta=(\eta_1,\ldots,\eta_r)^\mathrm{T}\in\mathbb{R}^r$, $r<p$. Предполагаем, что $\mathbb{E}\xi_i=0,$ $\mathbb{E}\eta_i=0, ~\mathbb{D}\eta_i=1,$ $\eta_i$ и $\eta_j$ некоррелированы. Пусть $\mathbb{F}_r=[F_1:\ldots:F_r]\in\mathbb{R}^{p\times r}$.
+Пусть $\xi=(\xi_1,\ldots,\xi_p)^\mathrm{T} \in \mathbb{R}^p, ~\eta=(\eta_1,\ldots,\eta_r)^\mathrm{T}\in\mathbb{R}^r$, $r<p$. Предполагаем, что $\mathbb{E}\xi_i=0,$ $\mathbb{E}\eta_i=0, ~\mathbb{D}\eta_i=1,$ $\eta_i$ и $\eta_j$ некоррелированы. 
+Пусть $\mathbb{F}_r=[F_1:\ldots:F_r]\in\mathbb{R}^{p\times r}$.
 
-Итак, модель в факторном анализе: $\xi=\mathbb{F}_r\eta+\mathcal{E}, ~ \text{Cov}\mathcal{E}=\diag(\sigma_1^2,\ldots,\sigma_p^2)$, $\eta$ и $\mathcal{E}$ некоррелированы. Случайной величине $\xi$ соответствует матрица данных $\mathbb{X}^\mathrm{T}$ (признаки, которые мы наблюдаем), а $\eta$ соответствует $\mathbb{V}_r^\mathrm{T}$ (скрытые признаки, которые мы не наблюдаем). Перед нами стоит задача выявить эти скрытые признаки (задача факторного анализа).
+Итак, модель в факторном анализе: $\xi=\mathbb{F}_r\eta+\mathcal{E},$ где  $\text{Cov}\mathcal{E}=\diag(\sigma_1^2,\ldots,\sigma_p^2)$, $\eta$ и $\mathcal{E}$ некоррелированы. Случайной величине $\xi$ соответствует матрица данных $\mathbb{X}^\mathrm{T}$ (признаки, которые мы наблюдаем), а $\eta$ соответствует $\mathbb{V}_r^\mathrm{T}$ (скрытые признаки, которые мы не наблюдаем). Перед нами стоит задача выявить эти скрытые признаки (задача факторного анализа).
 
 Модель можно переписать в следующем виде:
-\begin{equation*} \text{Cov}(\xi)=\text{Cov}(\mathbb{F}_r\eta)+\text{Cov}(\mathcal{E})=\mathbb{F}_r\mathbb{F}_r^\mathbb{T}+\Psi,
+\begin{equation*} \Sigma = \text{Cov}(\xi)=\text{Cov}(\mathbb{F}_r\eta)+\text{Cov}(\mathcal{E})=\mathbb{F}_r\mathbb{F}_r^\mathbb{T}+\Psi,
 \end{equation*}
 где $\Psi=\diag(\sigma_1^2,\ldots,\sigma_p^2), ~\rnk \mathbb{F}_r\mathbb{F}_r^\mathbb{T}\le r. $ Тогда данные --- это выборочная ковариационная матрица. Пусть $f_{ij}=\rho(\xi_i,\eta_j)$, тогда матрица выглядит следующим образом:
 
@@ -885,7 +886,11 @@ i:~~\lambda_i>\frac{\sum\limits_{i=1}^p s^2(X_i)}{p} = \frac{\sum\limits_{i=1}^d
 
 В этом пункте введем понятие общности и уникальности признаков.
 
-Обозначим $\xi'= \mathbb{F}_r \eta,$ тогда $\xi = \xi'+\varepsilon.$ Предполагаем, что $\mathrm{D}\xi_i=1,$ $\mathrm{D}\varepsilon_i=\sigma_i^2,$ тогда $\mathrm{D}\xi_i'=\mathrm{D}\xi_i-\mathrm{D}\varepsilon_i= 1-\sigma_i^2.$ Тогда
+Обозначим $\xi'= \mathbb{F}_r \eta,$ тогда $\xi = \xi'+\varepsilon.$ То есть $\xi'$ --- это та часть данных, которая описывается факторами. Предполагаем, что $\mathrm{D}\xi_i=1,$ $\mathrm{D}\varepsilon_i=\sigma_i^2,$ тогда $\mathrm{D}\xi_i'=\mathrm{D}\xi_i-\mathrm{D}\varepsilon_i= 1-\sigma_i^2.$ 
+
+Можно заметить, что $\text{Cov}(\xi_i, \xi_j)=\text{Cov}(\xi_i'+\varepsilon_i, \xi_j'+\varepsilon_j) = \text{Cov}(\xi_i', \xi_j').$\footnote{Остальные слагаемые обнуляются из-за независимости.} Получаем, что $\text{Cov}(\xi_i', \xi_j')=\rho_{ij}$. Также известно, что ковариационная матрица $\xi'$ равна $\text{Cov} (\xi') = \mathbb{F}_r \text{Cov}(\eta) \mathbb{F}_r^\mathrm{T} = \mathbb{F}_r\mathbb{F}_r^\mathrm{T}.$
+
+Тогда
 \begin{equation*}
 \mathbb{F}_r\mathbb{F}_r^\mathrm{T} = \text{Cov} (\xi') = 
 \left(\begin{matrix} 
@@ -901,7 +906,6 @@ i:~~\lambda_i>\frac{\sum\limits_{i=1}^p s^2(X_i)}{p} = \frac{\sum\limits_{i=1}^d
 1 = \mathrm{D}\xi_i = \mathrm{D}\xi_i'+\mathrm{D}\varepsilon_i = \underbrace{(1-\sigma_i^2)}_{\substack{\text{commonality}, \\  \text{общность признака}}} + \underbrace{\sigma_i^2}_{\substack{\text{uniquence}, \\  \text{уникальность}}}.
 \end{equation*}
 
-Можно заметить, что $\text{Cov}(\xi_i'+\varepsilon_i, \xi_j'+\varepsilon_j) = \text{Cov}(\xi_i', \xi_j').$\footnote{Остальные слагаемые обнулятся.} Также известно, что ковариационная матрица $\xi'$:  $\text{Cov} (\xi') = \mathbb{F}_r \text{Cov}(\eta) \mathbb{F}_r^\mathrm{T} = \mathbb{F}_r\mathbb{F}_r^\mathrm{T}.$
 
 \begin{remark}
  Общность является множественным коэффициентом корреляции:
@@ -944,7 +948,7 @@ pr+p-\frac{r(r-1)}{2}\le \frac{p(p+1)}{2}.
 \end{equation*}
 
 \section{Задача оценивания параметров}
-Теперь можем перейти к задаче оценивания параметров.
+Теперь можем перейти к задаче оценивания параметров. Можно оценивать несколькими методами.
  
 \subsection{Метод наименьших квадратов (OLS)}
 
@@ -955,7 +959,7 @@ pr+p-\frac{r(r-1)}{2}\le \frac{p(p+1)}{2}.
 \sum\limits_{i,j=1}^p (s_{ij}-\widetilde{s}_{ij})^2\to \min\limits_{\widetilde{\mathbb{S}}:~ \widetilde{\mathbb{S}}=\widetilde{\mathbb{F}}_r\widetilde{\mathbb{F}}_r^\mathrm{T}+\widetilde{\Psi}}
 \end{equation*}
 
-\textit{Алгоритм MINRES} (OLS для ковариационной матрицы):
+\textbf{Алгоритм MINRES} (OLS для ковариационной матрицы):
 \begin{enumerate}
 	\item Рассматриваем не всю матрицу, а ее часть, и решаем следующую задачу:\footnote{Матрицу $\Psi$ убрали, т.к. она диагональна, а мы суммируем по всем $i\ne j$.} 
 	\begin{equation*}
@@ -991,18 +995,19 @@ pr+p-\frac{r(r-1)}{2}\le \frac{p(p+1)}{2}.
 \begin{equation*}
 \sum\limits_{i\ne j} (s_{ij}-\widetilde{s}_{ij})^2\to \min\limits_{\widetilde{\mathbb{S}}:~ \widetilde{\mathbb{S}}=\widetilde{\mathbb{F}}_r\widetilde{\mathbb{F}}_r^\mathrm{T}},
 \end{equation*}
- где минимизируется сумма по всем элементам, кроме диагональных, $\widetilde{\mathbb{S}}$ --- симметричная, неотрицательно определенная матрица ранга $r$
+ где минимизируется сумма по всем элементам, кроме диагональных, $\widetilde{\mathbb{S}}$ --- симметричная, неотрицательно определенная матрица ранга, не превосходящего $r$.
 
 \textbf{Задача в анализе главных компонент}:
 \begin{equation*}
 \sum\limits_{i,j} (s_{ij}-\widetilde{s}_{ij})^2 \to \min\limits_{\widetilde{\mathbb{S}}:~ \widetilde{\mathbb{S}}=\widetilde{\mathbb{F}}_r\widetilde{\mathbb{F}}_r^\mathrm{T}},
 \end{equation*}
-минимизируется сумма по всем элементам, $\widetilde{\mathbb{S}}$ --- симметричная, неотрицательно определенная матрица ранга $r$.
+минимизируется сумма по всем элементам, $\widetilde{\mathbb{S}}$ --- симметричная, неотрицательно определенная матрица ранга, не превосходящего $r$.
 
 Таким образом, цель факторного анализа --- как можно лучше воспроизвести ковариации. В анализе главных компонент стоит аппроксимизационная задача, и АГК не решает задачу факторного анализа.
 
 \section{Проверка гипотез}
 
+\subsection{Проверка значимости модели}
 Рассмотрим гипотезу $H_0:~ \Sigma=\mathbb{F}_r\mathbb{F}_r^\mathrm{T}+\Psi$ о том, что $\Sigma$ действительно имеет такой вид. Статистика критерия
 \begin{equation*}
 t=(n-1-\frac{2p+4r-5}{6})\log \frac{\overbrace{|\widehat{\mathbb{F}}_r\widehat{\mathbb{F}}_r^\mathrm{T}+\widehat{\Psi}|}^{\text{То, что ожидаем}}}{\underbrace{|\mathbb{S}|}_{\text{То, что есть}}} \sim \chi^2(\frac{(p-r)^2-(p+r)}{2})
@@ -1010,33 +1015,48 @@ t=(n-1-\frac{2p+4r-5}{6})\log \frac{\overbrace{|\widehat{\mathbb{F}}_r\widehat{\
 
 Идеальное значение равно $0$, критическая область справа.\footnote{Логарифм будет равен нулю, если данные идеально соответствуют гипотезе.}
 
+\subsection{Тест сферичности Бартлетта}
 Для начала необходимо проверить, есть ли вообще структура. Гипотеза о том, что общей структуры нет: $H_0: ~ \Sigma=\mathbb{I}_{p\times p}$ (единичная матрица).
 
-Тест сферичности Бартлетта:
+Тест сферичности Бартлетта: статистика критерия
 \begin{equation*}
 t=(n-1-\frac{2p-5}{6})(-\log |\mathbb{S}|) \sim \chi^2(\frac{p(p-1)}{2}).
 \end{equation*}
 
-Можно применять информационные критерии AIC, BIC (в нормальной модели) --- подход со штрафом за число параметров. Можно промоделировать, посчитать вклады и строить доверительный интервал.
+Для выбора порядка модели можно применять информационные критерии AIC, BIC (в нормальной модели) --- подход со штрафом за число параметров. Можно промоделировать, посчитать вклады (несколько раз) и строить доверительный интервал.
 
 \section{Ортогональные вращения}
 
 Имеем $\mathbb{F}_r=\{f_{ij}\}=\{\rho(\xi_i,\eta_j)\}$. Мы интерпретируем признаки в факторном анализе, смотря на элементы $f_{ij}$ (как исходные признаки выражаются через факторы). Нам хотелось бы, чтобы матрица $\mathbb{F}_r$ имела простую структуру (то есть чтобы в ней было много нулей).
 
-Заметим, что если $\mathbb{F}_r$ --- решение, то $\widetilde{\mathbb{F}}_r=\mathbb{F}_r\mathbb{W}$ --- тоже решение.\footnote{Только будут другие корреляции.} $\mathbb{W}$ ортогональна.
+Заметим, что если $\mathbb{F}_r$ --- решение, то вращение $\widetilde{\mathbb{F}}_r=\mathbb{F}_r\mathbb{W}$ --- тоже решение.\footnote{Только будут другие корреляции.} Матрица $\mathbb{W}$ ортогональна.
 
-На выборочном языке: $\mathbb{X}'$ --- та часть исходных данных, которая описывается факторами ($\xi'=\mathbb{F}_r\eta$).
+На выборочном языке: $\mathbb{X}'$ --- та часть исходных данных, которая описывается факторами (соответствует $\xi'=\mathbb{F}_r\eta$).
 \begin{equation*}
-\mathbb{X}'=\mathbb{V}\mathbb{F}^\mathrm{T}=\underbrace{\mathbb{V}\mathbb{W}}_{\widetilde{\mathbb{V}}}\underbrace{\mathbb{W}^\mathrm{T}\mathbb{F}^\mathrm{T}}_{\widetilde{\mathbb{F}}},
+\mathbb{X}'=\mathbb{V}\mathbb{F}^\mathrm{T}_r=\underbrace{\mathbb{V}\mathbb{W}}_{\widetilde{\mathbb{V}}}\underbrace{\mathbb{W}^\mathrm{T}\mathbb{F}^\mathrm{T}_r}_{\widetilde{\mathbb{F}}_r},
 \end{equation*}
-$\widetilde{\mathbb{V}}$ --- новые факторы, $\widetilde{\mathbb{F}}$ --- новые факторные нагрузки. Хотелось бы найти такую $\mathbb{W},$ чтобы интерпретация была как можно проще.
+$\widetilde{\mathbb{V}}$ --- новые факторы, $\widetilde{\mathbb{F}}_r$ --- новые факторные нагрузки. Хотелось бы найти такую $\mathbb{W},$ чтобы интерпретация была как можно проще.
 
-\textit{Метод вращений Varimax}:
+\begin{example}
+	Пусть у нас какие-то признаки отвечают за знание математики, а другие за знание физики. 
+	\begin{center}
+	\begin{minipage}{0.51\linewidth}
+		\centering
+		\includegraphics[width=200pt, height=180pt]{p12}
+		\captionof{figure}{Вращение в факторном анализе}
+	\end{minipage}
+\end{center}
+
+Мы можем повернуть данные так, что у нас одна ось совпадет, к примеру, с признаком $m_2$, а другая с признаком $p_1$. Тогда интерпретировать станет проще.
+\end{example}
+
+
+\textbf{Метод вращений Varimax}:
 Хотим получить более понятную интерпретацию, для этого нам будет удобно, если в каждом столбце матрицы $\mathbb{F}_r$ было как можно больше нулей. Задача выглядит следующим образом:
 \begin{equation*}
 \sum\limits_{j=1}^r \big[\frac{1}{p}\sum\limits_{i=1}^p(\widetilde{f}_{ij}^2)^2-(\frac{1}{p}\sum\limits_{i=1}^p\widetilde{f}_{ij}^2)^2\big] \to \max\limits_{\mathbb{W}:~ \widetilde{\mathbb{F}}_r=\mathbb{F}_r\mathbb{W} },
 \end{equation*}
-где мы рассматриваем $f_{ij}^2$, т.к. $f_{ij}$ могут быть отрицательны, и считаем выборочную дисперсию.
+где мы рассматриваем $f_{ij}^2$, т.к. $f_{ij}$ могут быть отрицательны, и считаем выборочную дисперсию для $f_{ij}^2$.\footnote{Мы хотим, чтобы в матрице были большие и маленькие числа, а количественная характеристика, которая позволяет отличать одинаковые числа от разных --- это дисперсия, ее мы и максимизируем.}
 
 \textbf{На выборочном языке:} $\mathbb{V}=[V_1:\ldots:V_r], ~ V_1,\ldots,V_r\in\mathbb{R}^n$ --- факторные вектора. На выборочном языке $\xi$ переходит в $\mathbb{X}\in\mathbb{R}^{n\times p}$, $\xi'$ переходит в $\mathbb{X}'\in\mathbb{R}^{n\times p}$, $\eta$ (соответствует факторам) переходит в $\mathbb{V}\in\mathbb{R}^{n\times r}$. Тогда $\mathbb{F}\eta$ соответствует $\mathbb{V}\mathbb{F}^\mathrm{T}$.
 
@@ -1075,7 +1095,7 @@ $\widetilde{\mathbb{V}}$ --- новые факторы, $\widetilde{\mathbb{F}}$
 \end{definition}
 
 \begin{definition}
-	Факторный паттерн (factor pattern, factor loadings) --- это матрица $\widetilde{\mathbb{F}}$, коэффициенты линейной комбинации в $\xi'=\widetilde{\mathbb{F}}\widetilde{\eta}.$
+	Факторный паттерн (factor pattern, factor loadings) --- это матрица $\widetilde{\mathbb{F}}$, коэффициенты линейной комбинации в $\xi'=\widetilde{\mathbb{F}}\widetilde{\eta}$ (коэффициенты линейной комбинации, с которыми исходные признаки выражаются через новые).
 \end{definition}
 
 \begin{proposition}
@@ -1107,7 +1127,7 @@ $\widetilde{\mathbb{V}}$ --- новые факторы, $\widetilde{\mathbb{F}}$
 	v_{i1} \\
 	\vdots \\
 	v_{ir}
-	\end{matrix} \right) = (\mathbb{F}^\mathrm{T}\mathbb{F})^{-1}\mathbb{F}^\mathrm{T}Y_i
+	\end{matrix} \right) = (\mathbb{F}^\mathrm{T}\mathbb{F})^{-1}\mathbb{F}^\mathrm{T}Y_i.
 	\end{equation*}
 	
 	\item (Метод Бартлетта (WLS)) Пусть $\Psi = \diag(\sigma_1^2, \ldots, \sigma_p^2)$ --- диагональная матрица, в которой на диагонали стоят уникальности. Тогда решение:
@@ -1116,7 +1136,7 @@ $\widetilde{\mathbb{V}}$ --- новые факторы, $\widetilde{\mathbb{F}}$
 	v_{i1} \\
 	\vdots \\
 	v_{ir}
-	\end{matrix} \right) = (\mathbb{F}^\mathrm{T}\Psi^{-1}\mathbb{F})^{-1}\mathbb{F}^\mathrm{T}\Psi^{-1}Y_i
+	\end{matrix} \right) = (\mathbb{F}^\mathrm{T}\Psi^{-1}\mathbb{F})^{-1}\mathbb{F}^\mathrm{T}\Psi^{-1}Y_i.
 	\end{equation*}
 	
 	\item (Regression method) В нормальной модели, основываясь на ОМП,
@@ -1125,18 +1145,10 @@ $\widetilde{\mathbb{V}}$ --- новые факторы, $\widetilde{\mathbb{F}}$
 	v_{i1} \\
 	\vdots \\
 	v_{ir}
-	\end{matrix} \right) = \mathbb{F}^\mathrm{T}\mathbb{S}^{-1}Y_i
+	\end{matrix} \right) = \mathbb{F}^\mathrm{T}\mathbb{S}^{-1}Y_i.
 	\end{equation*}
 	
 \end{enumerate}
-
-
-
-
-
-
-
-
 
 
 
